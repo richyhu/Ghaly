@@ -3,7 +3,7 @@
 A powerful command-line tool for analyzing GitHub project health, discovering high-quality repositories, and getting AI-powered recommendations.
 
 一个强大的命令行工具，用于分析 GitHub 项目健康度、发现高质量仓库，并获得 AI 驱动的推荐。
-
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/richyhu/Ghaly)
 ---
 
 ## Features / 功能特性
