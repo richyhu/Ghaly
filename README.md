@@ -1,9 +1,14 @@
 # Ghaly - GitHub Project Activity Analysis Tool / GitHub 项目活跃度分析工具
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
+[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Development Status](https://img.shields.io/badge/status-beta--orange.svg)](https://github.com/richyhu/Ghaly)
+
 A powerful command-line tool for analyzing GitHub project health, discovering high-quality repositories, and getting AI-powered recommendations.
 
 一个强大的命令行工具，用于分析 GitHub 项目健康度、发现高质量仓库，并获得 AI 驱动的推荐。
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/richyhu/Ghaly)
+
 ---
 
 ## Features / 功能特性
@@ -14,6 +19,33 @@ A powerful command-line tool for analyzing GitHub project health, discovering hi
 - 🔍 **Smart Search / 智能搜索**: Find similar projects with AI-powered recommendations / 使用 AI 推荐查找相似项目
 - 🎨 **Beautiful CLI / 美观 CLI**: Rich, colorful command-line interface with tables / 丰富的彩色命令行界面，带表格显示
 - 💬 **Interactive REPL / 交互式 REPL**: Simple text-based interface with natural language support (similar to ChatGPT/Claude) / 简单的文本界面，支持自然语言（类似 ChatGPT/Claude）
+- 🌍 **Multi-language Support / 多语言支持**: Built-in Chinese and English language switching / 内置中英文切换功能
+
+---
+
+## Screenshots / 截图
+
+### Interactive Mode / 交互模式
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                                                                              │
+│   ████████╗██╗  ██╗███████╗██╗     ██╗    ███████╗██████╗  ██████╗ ███████╗│
+│   ╚══██╔══╝██║  ██║██╔════╝██║     ██║    ██╔════╝██╔══██╗██╔═══██╗██╔════╝│
+│      ██║   ███████║█████╗  ██║     ██║    █████╗  ██████╔╝██║   ██║███████╗│
+│      ██║   ██╔══██║██╔══╝  ██║     ██║    ██╔══╝  ██╔══██╗██║   ██║╚════██║│
+│      ██║   ██║  ██║███████╗███████╗███████║███████╗██║  ██║╚██████╔╝███████║│
+│      ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝│
+│                                                                              │
+│   👤 你 [06:00:32]                                                            │
+│   📍 /Users/anna/Desktop/ghaly                                                 │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+> 分析 facebook/react 仓库
+
+正在分析 facebook/react 仓库...
+```
 
 ---
 
@@ -25,19 +57,25 @@ A powerful command-line tool for analyzing GitHub project health, discovering hi
 pip install ghaly
 ```
 
+### From TestPyPI (for testing / 测试版本)
+
+```bash
+pip install -i https://test.pypi.org/simple/ ghaly==0.1.0
+```
+
 ### From Source / 从源码安装
 
 ```bash
-git clone https://github.com/ghaly/ghaly.git
-cd ghaly
+git clone https://github.com/richyhu/Ghaly.git
+cd Ghaly
 pip install -e .
 ```
 
 ### Development Installation / 开发环境安装
 
 ```bash
-git clone https://github.com/ghaly/ghaly.git
-cd ghaly
+git clone https://github.com/richyhu/Ghaly.git
+cd Ghaly
 pip install -e ".[dev]"
 ```
 
@@ -126,6 +164,8 @@ This launches a simple text-based interactive interface similar to ChatGPT/Claud
 - `help` - 显示帮助 / Show help
 - `clear` - 清空屏幕 / Clear screen
 - `status` - 查看认证状态 / Check authentication status
+- `/language zh` - 切换到中文 / Switch to Chinese
+- `/language en` - Switch to English / 切换到英文
 
 ---
 
@@ -265,6 +305,7 @@ ghaly/
 │   ├── analyzer.py     # Repository analyzer / 仓库分析器
 │   ├── ai_client.py    # AI client / AI 客户端
 │   ├── repl.py         # Interactive REPL interface / 交互式 REPL 界面
+│   ├── i18n.py         # Internationalization / 国际化
 │   └── tests/          # Test files / 测试文件
 ├── pyproject.toml      # Project configuration / 项目配置
 ├── .env.example        # Example environment variables / 环境变量示例
@@ -317,15 +358,47 @@ Ghaly 计算以下指标：
 
 ---
 
+## FAQ / 常见问题
+
+### Q: How do I get a GitHub OAuth App? / 如何获取 GitHub OAuth 应用？
+
+**A:** Go to https://github.com/settings/developers, click "New OAuth App", and fill in the required details. Use `http://localhost:8080` for both Homepage URL and Authorization callback URL.
+**答：** 访问 https://github.com/settings/developers，点击 "New OAuth App"，填写所需信息。Homepage URL 和 Authorization callback URL 都使用 `http://localhost:8080`。
+
+### Q: Is my data secure? / 我的数据安全吗？
+
+**A:** Yes. OAuth tokens are stored securely in `~/.ghaly/tokens.json` with restricted permissions (600). We never store your GitHub password.
+**答：** 是的。OAuth 令牌安全地存储在 `~/.ghaly/tokens.json` 中，权限受限（600）。我们从不存储你的 GitHub 密码。
+
+### Q: Can I use ghaly without AI features? / 可以在不使用 AI 功能的情况下使用 ghaly 吗？
+
+**A:** Yes. You can analyze repositories and search without configuring SILICONFLOW_API_KEY. AI features are optional.
+**答：** 可以。你可以在不配置 SILICONFLOW_API_KEY 的情况下分析仓库和搜索。AI 功能是可选的。
+
+### Q: What programming languages are supported? / 支持哪些编程语言？
+
+**A:** Ghaly requires Python 3.8 or higher. It can analyze repositories written in any programming language.
+**答：** Ghaly 需要 Python 3.8 或更高版本。它可以分析用任何编程语言编写的仓库。
+
+### Q: How do I switch between Chinese and English? / 如何在中英文之间切换？
+
+**A:** In interactive mode, use `/language zh` for Chinese or `/language en` for English.
+**答：** 在交互模式下，使用 `/language zh` 切换到中文，或使用 `/language en` 切换到英文。
+
+---
+
 ## Roadmap / 路线图
 
 - [x] Phase 1: Environment Setup + OAuth Authentication / 阶段 1：环境设置 + OAuth 认证
 - [x] Phase 2: Core Function Development / 阶段 2：核心功能开发
 - [x] Phase 3: AI Function Implementation / 阶段 3：AI 功能实现
 - [x] Phase 4: Testing and Optimization / 阶段 4：测试和优化
-- [x] Phase 5: Interactive TUI Interface / 阶段 5：交互式 TUI 界面
-- [ ] Phase 6: Performance Optimization (planned) / 阶段 6：性能优化（计划中）
-- [ ] Phase 7: PyPI Release (planned) / 阶段 7：PyPI 发布（计划中）
+- [x] Phase 5: Interactive REPL Interface / 阶段 5：交互式 REPL 界面
+- [x] Phase 6: Multi-language Support / 阶段 6：多语言支持
+- [x] Phase 7: TestPyPI Release / 阶段 7：TestPyPI 发布
+- [ ] Phase 8: Performance Optimization (planned) / 阶段 8：性能优化（计划中）
+- [ ] Phase 9: PyPI Release (planned) / 阶段 9：PyPI 发布（计划中）
+- [ ] Phase 10: Web Dashboard (planned) / 阶段 10：Web 仪表板（计划中）
 
 ---
 
@@ -339,8 +412,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ```bash
 # Fork and clone
 # Fork 并克隆
-git clone https://github.com/your-username/ghaly.git
-cd ghaly
+git clone https://github.com/richyhu/Ghaly.git
+cd Ghaly
 
 # Create virtual environment
 # 创建虚拟环境
@@ -387,6 +460,10 @@ MIT 许可证 - 详见 LICENSE 文件
 For issues and questions, please open an issue on GitHub.
 如有问题和疑问，请在 GitHub 上提交 issue。
 
+- 📧 Email: ghaly@example.com
+- 🐛 Issues: https://github.com/richyhu/Ghaly/issues
+- 💬 Discussions: https://github.com/richyhu/Ghaly/discussions
+
 ---
 
 ## Acknowledgments / 致谢
@@ -396,3 +473,12 @@ For issues and questions, please open an issue on GitHub.
 - Powered by [SiliconFlow](https://siliconflow.cn/) for AI features / 由 [SiliconFlow](https://siliconflow.cn/) 提供 AI 功能支持
 - Beautiful output with [Rich](https://rich.readthedocs.io/) / 使用 [Rich](https://rich.readthedocs.io/) 实现美观输出
 - GitHub API integration with [Requests](https://requests.readthedocs.io/) / 使用 [Requests](https://requests.readthedocs.io/) 集成 GitHub API
+
+---
+
+## Star History / 星标历史
+
+If you find this project helpful, please consider giving it a ⭐️ on GitHub!
+如果你觉得这个项目有帮助，请在 GitHub 上给它一个 ⭐️！
+
+[![Star History Chart](https://api.star-history.com/svg?repos=richyhu/Ghaly&type=Date)](https://star-history.com/#richyhu/Ghaly&Date)
