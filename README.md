@@ -4,7 +4,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Development Status](https://img.shields.io/badge/status-beta--orange.svg)](https://github.com/richyhu/Ghaly)
-
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/richyhu/Ghaly)
 A powerful command-line tool for analyzing GitHub project health, discovering high-quality repositories, and getting AI-powered recommendations.
 
 一个强大的命令行工具，用于分析 GitHub 项目健康度、发现高质量仓库，并获得 AI 驱动的推荐。
